@@ -19,7 +19,7 @@ const styles = {
   },
   title: {
     fontSize: 14,
-    color:'#ff6a13'
+    color: '#ff6a13',
   },
   pos: {
     marginBottom: 12,
@@ -27,7 +27,10 @@ const styles = {
 };
 
 function GearCard(props) {
-  const { classes, title, contents, gearData } = props;
+  const {
+    classes, title, contents, gearData, gear, typeName,
+  } = props;
+  console.log(typeName)
   const bull = <span className={classes.bullet}>•</span>;
   return (
     <Card className={classes.card}>
@@ -36,7 +39,7 @@ function GearCard(props) {
           {bull}{title}
         </Typography>
         <Typography variant="h5" component="h2">
-          
+          {gear&&gear.mask[0]}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
 
@@ -46,7 +49,7 @@ function GearCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <GearDialog gearData={gearData}/>
+        <GearDialog gearData={gearData[typeName]} gear={gear}/>
       </CardActions>
     </Card>
   );

@@ -1,3 +1,3 @@
-import mask from './equipments/mask'
+import mask from './equipments/mask';
 
-export default {mask}
+export default { mask };

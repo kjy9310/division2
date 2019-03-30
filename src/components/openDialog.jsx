@@ -32,8 +32,7 @@ class OpenDialog extends React.Component {
   };
 
   render() {
-    const { content } = this.props;
-
+    const { content, confirmFunction: handleOk } = this.props;
     return (
       <div>
         <Button onClick={this.handleClickOpen}>DETAIL</Button>
@@ -51,7 +50,7 @@ class OpenDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={()=>{handleOk();this.handleClose()}} color="primary">
               Ok
             </Button>
           </DialogActions>
