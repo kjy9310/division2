@@ -1,4 +1,4 @@
-const kneepad = {
+const kneepads = {
   talents: [
     {
       name: 'Hard Hitting',
@@ -305,4 +305,4 @@ const kneepad = {
   ],
 };
 
-export default kneepad;
+export default kneepads;

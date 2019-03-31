@@ -5,11 +5,11 @@ import chest from './gears/chest';
 import backpack from './gears/backpack';
 import gloves from './gears/gloves';
 import holster from './gears/holster';
-import kneepad from './gears/kneepad';
+import kneepads from './gears/kneepad';
 
 export default {
   gears: {
-    mask, chest, backpack, holster, gloves, kneepad,
+    mask, chest, backpack, holster, gloves, kneepads,
   },
   en,
   ko,
