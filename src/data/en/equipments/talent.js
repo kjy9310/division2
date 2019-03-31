@@ -4,6 +4,16 @@ const talents = {
     description: 'Damage to Elites increased by 15%',
     requirement: '',
   },
+  Vital: {
+    name: 'Vital',
+    description: 'Health increased by 20%',
+    requirement: '',
+  },
+  Hardened: {
+    name: 'Hardened',
+    description: 'Armor increased by 10%',
+    requirement: '',
+  },
   Insulated: {
     name: 'Insulated',
     description: 'Hazard Protection increased by 10%',
@@ -63,6 +73,36 @@ const talents = {
     name: 'Dialed In',
     description: 'After aiming your weapon stability is increased by [25]% of your Weapon Accuracy for [5] seconds. (values TBD?)',
     requirement: '',
+  },
+  Beserk: {
+    name: 'Beserk',
+    description: 'For every 10% of your armor bar missing, weapon damage is increased by 10%',
+    requirement: 'Shotgun/SMG/AR',
+  },
+  Bloodsucker: {
+    name: 'Bloodsucker',
+    description: 'Depleting an enemy\'s armor adds a stack of +20% bonus armor for 20s. Max stack is 5',
+    requirement: '7 or more Defense',
+  },
+  'Unstoppable Force': {
+    name: 'Unstoppable Force',
+    description: 'After a kill your Weapon damage is increased by 2% for every 10000 armor of your maximum armor. Buff lasts for 10 seconds',
+    requirement: '7 or more Defense',
+  },
+  Grenadier: {
+    name: 'Grenadier',
+    description: 'Destroying an enemy skill increases your equipped Grenade effect by 50% and increases All Resistance by 50% for 15 seconds',
+    requirement: '4 or less Defense',
+  },
+  Unbreakable: {
+    name: 'Unbreakable',
+    description: 'After your armor breaks it is repaired by 25% and using an Armor Kit within 5s does not consume the Armor Kit. Can occur once every 60 seconds.',
+    requirement: 'No other active talents affecting armor kits',
+  },
+  'Mad Bomber': {
+    name: 'Mad Bomber',
+    description: 'Grenade radius is increased by 150%. Grenades that kill an enemy are refunded',
+    requirement: '4 or less Utility',
   },
 };
 
