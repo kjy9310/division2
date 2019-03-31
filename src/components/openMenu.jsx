@@ -39,7 +39,7 @@ class OpenMenu extends React.Component {
           onClose={this.handleClose}
         >
           <MenuItem onClick={() => { this.changeLocale('en'); }}>English</MenuItem>
-          <MenuItem onClick={() => { this.changeLocale('ko'); }}>조선어</MenuItem>
+          <MenuItem onClick={() => { this.changeLocale('ko'); }}>남조선어</MenuItem>
         </Menu>
       </div>
     );

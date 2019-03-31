@@ -43,7 +43,7 @@ function ButtonAppBar(props) {
           </Typography>
           <OpenMenu setLocale={localeControl}/>
           <Typography color="inherit">
-          v 0.3<br/>by <font style={{ color: 'magenta' }}>Mak-Ka</font>
+          v 0.5<br/>by <font style={{ color: 'magenta' }}>Mak-Ka</font>
           </Typography>
           {/* <Button color="inherit">Login</Button>*/}
         </Toolbar>

@@ -29,7 +29,7 @@ const styles = {
 
 function GearCard(props) {
   const {
-    classes, title, contents, gearData, gear, typeName, setGear, translate,
+    classes, contents, gearData, gear, typeName, setGear, translate,
   } = props;
   const handlingGearChange = (gearInfo) => {
     setGear(typeName, gearInfo);
@@ -46,9 +46,9 @@ function GearCard(props) {
           <Chip label={translatedObject.name} className={classes.chip} variant="outlined" />
           <Typography className={classes.pos} color="textSecondary">
             {translatedObject.description}
-            <Typography className={classes.pos} color="textSecondary" style={{color:'#ff6a1382'}}>
+            <br></br><span style={{ color: '#ff6a1382' }}>
               {bull}{translatedObject.requirement && translatedObject.requirement}
-            </Typography>
+            </span>
           </Typography>
         </>
       );
@@ -58,7 +58,7 @@ function GearCard(props) {
     <Card className={classes.card}>
       <CardContent>
         <Typography variant="h5" className={classes.title} gutterBottom>
-          {title}
+          {translate('general', typeName)}
         </Typography>
         <Typography color="textSecondary">
           {gear && gear[typeName].brand ? translate('brands', gear[typeName].brand).name : ''}

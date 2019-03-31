@@ -1,4 +1,14 @@
 import talents from './equipments/talent';
 import brands from './equipments/brand';
 
-export default { talents, brands };
+const general = {
+  detail: 'DETAIL',
+  mask: 'Mask',
+  chest: 'Chest',
+  backpack: 'Backpack',
+  gloves: 'Gloves',
+  holster: 'Holster',
+  kneepads: 'Kneepads',
+};
+
+export default { talents, brands, general };

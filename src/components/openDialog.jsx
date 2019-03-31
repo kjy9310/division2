@@ -32,17 +32,17 @@ class OpenDialog extends React.Component {
   };
 
   render() {
-    const { content, confirmFunction: handleOk } = this.props;
+    const { content, confirmFunction: handleOk, buttonName } = this.props;
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>DETAIL</Button>
+        <Button onClick={this.handleClickOpen}>{buttonName}</Button>
         <Dialog
           disableBackdropClick
           disableEscapeKeyDown
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <DialogTitle>DETAIL</DialogTitle>
+          <DialogTitle>{buttonName}</DialogTitle>
           <DialogContent>
             {content}
           </DialogContent>

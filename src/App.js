@@ -43,7 +43,7 @@ class App extends Component {
       try {
         value = GearData.en.objectPath[targetName];
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         value = { name: targetName, description: null, bonuses: [] };
       }
     }
@@ -70,22 +70,22 @@ class App extends Component {
               <GearCard title="subWeapon" typeName="weapon" gearData={gearData}/>
             </Grid> */}
             <Grid item xs={6} style={this.gridStyle}>
-              <GearCard title="Mask" translate={this.translate} setGear={this.setGear} typeName="mask" gear={gears} gearData={gearData}/>
+              <GearCard translate={this.translate} setGear={this.setGear} typeName="mask" gear={gears} gearData={gearData}/>
             </Grid>
             <Grid item xs={6} style={this.gridStyle}>
-              <GearCard title="Chest" translate={this.translate} setGear={this.setGear} typeName="chest" gear={gears} gearData={gearData}/>
+              <GearCard translate={this.translate} setGear={this.setGear} typeName="chest" gear={gears} gearData={gearData}/>
             </Grid>
             <Grid item xs={6} style={this.gridStyle}>
-             <GearCard title="Backpack" typeName="backpack" gearData={gearData}/>
+             <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="backpack" gearData={gearData}/>
             </Grid>
             <Grid item xs={6} style={this.gridStyle}>
-              <GearCard title="Gloves" typeName="gloves" gearData={gearData}/>
+              <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="gloves" gearData={gearData}/>
             </Grid>
             <Grid item xs={6} style={this.gridStyle}>
-              <GearCard title="Holster" typeName="holster" gearData={gearData}/>
+              <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="holster" gearData={gearData}/>
             </Grid>
             <Grid item xs={6} style={this.gridStyle}>
-              <GearCard title="Kneepads" typeName="kneepads" gearData={gearData}/>
+              <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="kneepads" gearData={gearData}/>
             </Grid>
           </Grid>
         </header>

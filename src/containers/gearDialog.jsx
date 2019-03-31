@@ -151,10 +151,10 @@ class GearDialog extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, translate } = this.props;
 
     return (
-          <OpenDialog classes={classes} confirmFunction={this.updateGear} content={this.content(this.props)}/>
+          <OpenDialog buttonName={translate('general', 'detail')} classes={classes} confirmFunction={this.updateGear} content={this.content(this.props)}/>
     );
   }
 }
