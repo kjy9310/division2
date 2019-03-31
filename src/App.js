@@ -3,6 +3,7 @@ import './App.css';
 import Grid from '@material-ui/core/Grid';
 import ButtonAppBar from './containers/menuBar';
 import GearCard from './containers/gearCard';
+import BrandBoard from './containers/brandBoard';
 import GearData from './data';
 
 class App extends Component {
@@ -59,7 +60,14 @@ class App extends Component {
       <div className="App">
       <ButtonAppBar localeControl={this.localeControl}/>
         <header className="App-header">
-          <Grid container style={{ maxWidth: '600px' }}>
+          <Grid container style={{ maxWidth: '800px' , marginBottom: '10px' }}>
+            <Grid item xs={4} style={this.gridStyle}>
+            </Grid>
+            <Grid item xs={12} style={this.gridStyle}>
+              <BrandBoard translate={this.translate} gears={gears}/>
+            </Grid>
+          </Grid>
+          <Grid container style={{ maxWidth: '800px' }}>
             {/* <Grid item xs={4}>
               <GearCard title="1Weapon" typeName="weapon" gearData={gearData}/>
             </Grid>
