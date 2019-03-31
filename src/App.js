@@ -26,7 +26,6 @@ class App extends Component {
     this.setState({
       gears: newGears,
     });
-    console.log(gears);
   }
 
   localeControl = (locale) => {
@@ -93,7 +92,7 @@ class App extends Component {
               <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="holster" gearData={gearData}/>
             </Grid>
             <Grid item xs={6} style={this.gridStyle}>
-              <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="kneepad" gearData={gearData}/>
+              <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="kneepads" gearData={gearData}/>
             </Grid>
           </Grid>
         </header>
