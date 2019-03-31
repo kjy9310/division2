@@ -31,6 +31,9 @@ class GearDialog extends React.Component {
       newProperty[index] = event.target.value;
       this.setState({ [name]: newProperty });
     }
+    if (name === 'gearIndex') {
+      this.setState({ talents: [] });
+    }
   };
 
   handleClickOpen = () => {
@@ -42,28 +45,26 @@ class GearDialog extends React.Component {
   };
 
   talentSelect = (index) => {
-    const { props: { gearData, gear }, state: { talents, gearIndex } } = this;
+    const { props: { classes, gearData, translate }, state: { talents, gearIndex } } = this;
     const gearTalentsType = gearData.equipments[gearIndex].talents[index];
-    const filteredTalents = gearData.talents.filter(element => (gearTalentsType[element.type1] !== undefined) && (gearTalentsType[element.type1].indexOf(element.type2) > -1));
-    console.log(gear)
+
+    const talentCheck = element => (gearTalentsType[element.type1] !== undefined) && (gearTalentsType[element.type1].indexOf(element.type2) > -1);
+
+    const filteredTalents = gearData.talents.filter(talentCheck);
+
     return (
-    <>
-    <InputLabel htmlFor={`talents${index}`}>talents</InputLabel>
+    <FormControl className={classes.formControl}>
+      <InputLabel htmlFor={`talents${index}`}>talents</InputLabel>
       <Select
         value={talents[index] ? talents[index] : ''}
         onChange={this.handleChange({ name: 'talents', index })}
         input={<Input id={`talents${index}`} />}
       >
       {
-        filteredTalents.map(element => <MenuItem value={element.name}> {element.name} </MenuItem>)}
+        filteredTalents.map(element => <MenuItem value={element.name}> {translate('talents', element.name) && translate('talents', element.name).name} </MenuItem>)}
       </Select>
-      </>
+    </FormControl>
     );
-  }
-
-  saveToStore = () => {
-    const { gear } = this.props;
-    console.log(gear)
   }
 
   content() {
@@ -76,30 +77,37 @@ class GearDialog extends React.Component {
     return (
       <form className={classes.container}>
       <FormControl className={classes.formControl}>
-      <InputLabel htmlFor="gear">Gear</InputLabel>
+      <InputLabel htmlFor="Brand">Brand</InputLabel>
       <Select
-      input={<Input id="gear" />}
+      input={<Input id="Brand" />}
       value={gearIndex}
       onChange={this.handleChange({ name: 'gearIndex' })}
       >
       {gears.map((element, index) => <MenuItem value={index}> {element.name} </MenuItem>)}
       </Select>
       </FormControl>
-
-      <FormControl className={classes.formControl}>
+      <br></br>
       {
       gears[gearIndex].talents.map((element, index) => this.talentSelect(index))
       }
-      </FormControl>
       </form>
     );
+  }
+
+  updateGear = () => {
+    const { props: { gearChange, gearData }, state: { gearIndex, talents } } = this;
+    const brand = gearData.equipments[gearIndex].name;
+    gearChange({
+      talents,
+      brand,
+    });
   }
 
   render() {
     const { classes } = this.props;
 
     return (
-          <OpenDialog classes={classes} confirmFunction={this.saveToStore} content={this.content(this.props)}/>
+          <OpenDialog classes={classes} confirmFunction={this.updateGear} content={this.content(this.props)}/>
     );
   }
 }

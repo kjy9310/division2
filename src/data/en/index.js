@@ -1,3 +1,4 @@
-import mask from './equipments/mask';
+import talents from './equipments/talent';
+import brands from './equipments/brand';
 
-export default { mask };
+export default { talents, brands };

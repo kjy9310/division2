@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 // import Button from '@material-ui/core/Button';
+import OpenMenu from '../components/openMenu';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from '../logo.svg';
@@ -23,12 +24,12 @@ const styles = {
 };
 
 function ButtonAppBar(props) {
-  const { classes } = props;
+  const { classes, localeControl } = props;
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{backgroundColor:'#222'}}>
+      <AppBar position="static" style={{ backgroundColor: '#222' }}>
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+          <IconButton color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
@@ -40,10 +41,11 @@ function ButtonAppBar(props) {
           <img src={logo} className="App-logo" alt="logo" />
           </a>
           </Typography>
+          <OpenMenu setLocale={localeControl}/>
           <Typography color="inherit">
-          v 0.3<br/>by <font style={{color:'magenta'}}>Mak-Ka</font>
+          v 0.3<br/>by <font style={{ color: 'magenta' }}>Mak-Ka</font>
           </Typography>
-          {/*<Button color="inherit">Login</Button>*/}
+          {/* <Button color="inherit">Login</Button>*/}
         </Toolbar>
       </AppBar>
     </div>

@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import GearDialog from './gearDialog';
 
@@ -18,7 +19,7 @@ const styles = {
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 14,
+    fontSize: 18,
     color: '#ff6a13',
   },
   pos: {
@@ -28,28 +29,44 @@ const styles = {
 
 function GearCard(props) {
   const {
-    classes, title, contents, gearData, gear, typeName,
+    classes, title, contents, gearData, gear, typeName, setGear, translate,
   } = props;
-  console.log(typeName)
-  const bull = <span className={classes.bullet}>•</span>;
+  const handlingGearChange = (gearInfo) => {
+    setGear(typeName, gearInfo);
+  };
+  const showTalentList = () => {
+    if (!gear || !gear[typeName].talents) {
+      return '';
+    }
+    const bull = <span className={classes.bullet}>•</span>;
+    return gear[typeName].talents.map((element) => {
+      const translatedObject = translate('talents', element);
+      return (
+        <>
+          <Chip label={translatedObject.name} className={classes.chip} variant="outlined" />
+          <Typography className={classes.pos} color="textSecondary">
+            {bull}{translatedObject.description}
+          </Typography>
+        </>
+      );
+    });
+  };
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {bull}{title}
+        <Typography variant="h5" className={classes.title} gutterBottom>
+          {title}
         </Typography>
-        <Typography variant="h5" component="h2">
-          {gear&&gear.mask[0]}
+        <Typography color="textSecondary">
+          {gear && gear[typeName].brand ? translate('brands', gear[typeName].brand).name : ''}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-
-        </Typography>
+          {showTalentList()}
         <Typography component="p">
           {contents}
         </Typography>
       </CardContent>
       <CardActions>
-        <GearDialog gearData={gearData[typeName]} gear={gear}/>
+        <GearDialog translate={translate} gearChange={handlingGearChange} gearData={gearData[typeName]} gear={gear}/>
       </CardActions>
     </Card>
   );

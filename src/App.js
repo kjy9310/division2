@@ -15,42 +15,77 @@ class App extends Component {
       holster: {},
       kneepads: {},
     },
+    localeData: GearData.en,
   }
 
+  setGear = (part, singleGearSet) => {
+    const { gears } = this.state;
+    gears[part] = singleGearSet;
+    const newGears = gears;
+    this.setState({
+      gears: newGears,
+    });
+    console.log(gears);
+  }
+
+  localeControl = (locale) => {
+    this.setState({
+      localeData: GearData[locale],
+    });
+  }
+
+  translate = (objectPath, targetName) => {
+    const { localeData } = this.state;
+    const path = `${objectPath}['${targetName}']`;
+    let value;
+    value = eval(`localeData.${path}`);
+    if (!value) {
+      try {
+        value = GearData.en.objectPath[targetName];
+      } catch (e) {
+        console.log(e);
+        value = { name: targetName, description: null };
+      }
+    }
+    return value;
+  }
+
+  gridStyle={ padding: '5px' }
+
   render() {
-    const selectedData = GearData.en;
+    const gearData = GearData.gears;
     const { gears } = this.state;
     return (
       <div className="App">
-      <ButtonAppBar/>
+      <ButtonAppBar localeControl={this.localeControl}/>
         <header className="App-header">
-          <Grid container spacing={24} style={{ maxWidth: '600px' }}>
-            <Grid item xs={4}>
-              <GearCard title="1Weapon" typeName="weapon" gearData={selectedData}/>
+          <Grid container style={{ maxWidth: '600px' }}>
+            {/* <Grid item xs={4}>
+              <GearCard title="1Weapon" typeName="weapon" gearData={gearData}/>
             </Grid>
             <Grid item xs={4}>
-              <GearCard title="2Weapon" typeName="weapon" gearData={selectedData}/>
+              <GearCard title="2Weapon" typeName="weapon" gearData={gearData}/>
             </Grid>
             <Grid item xs={4}>
-              <GearCard title="subWeapon" typeName="weapon" gearData={selectedData}/>
+              <GearCard title="subWeapon" typeName="weapon" gearData={gearData}/>
+            </Grid> */}
+            <Grid item xs={6} style={this.gridStyle}>
+              <GearCard title="Mask" translate={this.translate} setGear={this.setGear} typeName="mask" gear={gears} gearData={gearData}/>
             </Grid>
-            <Grid item xs={6}>
-              <GearCard title="Mask" typeName="mask" gear={gears} gearData={selectedData}/>
+            <Grid item xs={6} style={this.gridStyle}>
+              <GearCard title="Chest" typeName="chest" gearData={gearData}/>
             </Grid>
-            <Grid item xs={6}>
-              <GearCard title="Chest" typeName="chest" gearData={selectedData}/>
+            <Grid item xs={6} style={this.gridStyle}>
+             <GearCard title="Backpack" typeName="backpack" gearData={gearData}/>
             </Grid>
-            <Grid item xs={6}>
-             <GearCard title="Backpack" typeName="backpack" gearData={selectedData}/>
+            <Grid item xs={6} style={this.gridStyle}>
+              <GearCard title="Gloves" typeName="gloves" gearData={gearData}/>
             </Grid>
-            <Grid item xs={6}>
-              <GearCard title="Gloves" typeName="gloves" gearData={selectedData}/>
+            <Grid item xs={6} style={this.gridStyle}>
+              <GearCard title="Holster" typeName="holster" gearData={gearData}/>
             </Grid>
-            <Grid item xs={6}>
-              <GearCard title="Holster" typeName="holster" gearData={selectedData}/>
-            </Grid>
-            <Grid item xs={6}>
-              <GearCard title="Kneepads" typeName="kneepads" gearData={selectedData}/>
+            <Grid item xs={6} style={this.gridStyle}>
+              <GearCard title="Kneepads" typeName="kneepads" gearData={gearData}/>
             </Grid>
           </Grid>
         </header>

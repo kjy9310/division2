@@ -4,7 +4,6 @@ const masks = {
       type1: 'Common',
       type2: 'Offensive',
       name: 'Hard Hitting',
-      description: 'Damage to Elites increased by 15%',
     },
   ],
   equipments: [

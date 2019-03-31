@@ -42,7 +42,7 @@ class OpenDialog extends React.Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <DialogTitle>Fill the form</DialogTitle>
+          <DialogTitle>DETAIL</DialogTitle>
           <DialogContent>
             {content}
           </DialogContent>
@@ -50,7 +50,7 @@ class OpenDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={()=>{handleOk();this.handleClose()}} color="primary">
+            <Button onClick={() => { handleOk(); this.handleClose(); }} color="primary">
               Ok
             </Button>
           </DialogActions>
