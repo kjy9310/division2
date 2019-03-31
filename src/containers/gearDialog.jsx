@@ -22,18 +22,20 @@ class GearDialog extends React.Component {
     age: '',
     gearIndex: 0,
     talents: [],
+    brand: '',
   };
 
   handleChange = ({ name, index }) => (event) => {
-    if (!index && index !== 0) {
+    if (name === 'gearIndex') {
+      const { props: { gearData } } = this;
+      const newBrand = gearData.equipments[event.target.value].brand;
+      this.setState({ talents: [], brand: newBrand, [name]: event.target.value });
+    } else if (!index && index !== 0) {
       this.setState({ [name]: event.target.value });
     } else {
       const newProperty = this.state[name];
       newProperty[index] = event.target.value;
       this.setState({ [name]: newProperty });
-    }
-    if (name === 'gearIndex') {
-      this.setState({ talents: [] });
     }
   };
 
@@ -68,29 +70,62 @@ class GearDialog extends React.Component {
     );
   }
 
+  gearSelect = () => {
+    const { classes, gearData } = this.props;
+    const { gearIndex, brand } = this.state;
+    const gears = gearData.equipments;
+    return (
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="Name">Name</InputLabel>
+        <Select
+        input={<Input id="Name" />}
+        value={gearIndex}
+        onChange={this.handleChange({ name: 'gearIndex' })}
+        >
+        {gears.map((element, index) => {
+          if (brand === '' || element.brand === brand) {
+            return (
+              <MenuItem value={index}> {element.name} </MenuItem>
+            );
+          }
+          return '';
+        })}
+        </Select>
+      </FormControl>
+    );
+  }
+
   content() {
     const { classes, gearData, translate } = this.props;
     if (!gearData) {
       return '';
     }
-    const { gearIndex, talents } = this.state;
+    const { gearIndex, talents, brand } = this.state;
     const gears = gearData.equipments;
+    const brandList = [];
+    gearData.equipments.forEach((element) => {
+      if (brandList.indexOf(element.brand) === -1) {
+        brandList.push(element.brand);
+      }
+    });
     return (
       <form className={classes.container}>
       <FormControl className={classes.formControl}>
-      <InputLabel htmlFor="Brand">Brand</InputLabel>
-      <Select
-      input={<Input id="Brand" />}
-      value={gearIndex}
-      onChange={this.handleChange({ name: 'gearIndex' })}
-      >
-      {gears.map((element, index) => <MenuItem value={index}> {translate('brands', element.name).name} </MenuItem>)}
-      </Select>
+        <InputLabel htmlFor="Brand">Brand</InputLabel>
+        <Select
+        input={<Input id="Brand" />}
+        value={brand}
+        onChange={this.handleChange({ name: 'brand' })}
+        >
+        <MenuItem value=''>All</MenuItem>
+        {brandList.map(element => <MenuItem value={element}> {translate('brands', element).name} </MenuItem>)}
+        </Select>
       </FormControl>
       <Typography className={classes.pos} color="textSecondary">
-        {translate('brands', gearData.equipments[gearIndex].name).bonuses.join(' / ')}
+        {translate('brands', brand).bonuses.join(' / ')}
       </Typography>
-
+      <br></br>
+      {this.gearSelect()}
       <br></br>
       {
       gears[gearIndex].talents.map((element, index) => this.talentSelect(index))
@@ -108,7 +143,7 @@ class GearDialog extends React.Component {
 
   updateGear = () => {
     const { props: { gearChange, gearData }, state: { gearIndex, talents } } = this;
-    const brand = gearData.equipments[gearIndex].name;
+    const { brand } = gearData.equipments[gearIndex];
     gearChange({
       talents,
       brand,

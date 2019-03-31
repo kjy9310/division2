@@ -73,7 +73,7 @@ class App extends Component {
               <GearCard title="Mask" translate={this.translate} setGear={this.setGear} typeName="mask" gear={gears} gearData={gearData}/>
             </Grid>
             <Grid item xs={6} style={this.gridStyle}>
-              <GearCard title="Chest" typeName="chest" gearData={gearData}/>
+              <GearCard title="Chest" translate={this.translate} setGear={this.setGear} typeName="chest" gear={gears} gearData={gearData}/>
             </Grid>
             <Grid item xs={6} style={this.gridStyle}>
              <GearCard title="Backpack" typeName="backpack" gearData={gearData}/>

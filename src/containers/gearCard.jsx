@@ -45,7 +45,10 @@ function GearCard(props) {
         <>
           <Chip label={translatedObject.name} className={classes.chip} variant="outlined" />
           <Typography className={classes.pos} color="textSecondary">
-            {bull}{translatedObject.description}
+            {translatedObject.description}
+            <Typography className={classes.pos} color="textSecondary" style={{color:'#ff6a1382'}}>
+              {bull}{translatedObject.requirement && translatedObject.requirement}
+            </Typography>
           </Typography>
         </>
       );
