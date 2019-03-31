@@ -44,7 +44,7 @@ class App extends Component {
         value = GearData.en.objectPath[targetName];
       } catch (e) {
         console.log(e);
-        value = { name: targetName, description: null };
+        value = { name: targetName, description: null, bonuses: [] };
       }
     }
     return value;

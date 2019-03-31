@@ -6,6 +6,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 import OpenDialog from '../components/openDialog';
 
 const styles = theme => ({
@@ -68,11 +69,11 @@ class GearDialog extends React.Component {
   }
 
   content() {
-    const { classes, gearData } = this.props;
+    const { classes, gearData, translate } = this.props;
     if (!gearData) {
       return '';
     }
-    const { gearIndex } = this.state;
+    const { gearIndex, talents } = this.state;
     const gears = gearData.equipments;
     return (
       <form className={classes.container}>
@@ -83,13 +84,24 @@ class GearDialog extends React.Component {
       value={gearIndex}
       onChange={this.handleChange({ name: 'gearIndex' })}
       >
-      {gears.map((element, index) => <MenuItem value={index}> {element.name} </MenuItem>)}
+      {gears.map((element, index) => <MenuItem value={index}> {translate('brands', element.name).name} </MenuItem>)}
       </Select>
       </FormControl>
+      <Typography className={classes.pos} color="textSecondary">
+        {translate('brands', gearData.equipments[gearIndex].name).bonuses.join(' / ')}
+      </Typography>
+
       <br></br>
       {
       gears[gearIndex].talents.map((element, index) => this.talentSelect(index))
       }
+      {talents.map(
+        talentName => (
+            <Typography className={classes.pos} color="textSecondary">
+              {translate('talents', talentName).description}
+            </Typography>
+        ),
+      )}
       </form>
     );
   }
