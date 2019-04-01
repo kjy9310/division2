@@ -7,11 +7,13 @@ import CardContent from '@material-ui/core/CardContent';
 // import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import GearDialog from './gearDialog';
+import AttributeControl from '../components/attributeControl';
 
 const styles = {
   card: {
-    minWidth: 150,
+    // minWidth: 100,
   },
   bullet: {
     display: 'inline-block',
@@ -56,20 +58,35 @@ function GearCard(props) {
   };
   return (
     <Card className={classes.card}>
-      <CardContent>
-        <Typography variant="h5" className={classes.title} gutterBottom>
+      <CardContent style={{ padding: 0 }}>
+      <Grid container style={{ margin: 0, padding: 0 }}>
+        <Grid item xs={12} style={{ marginTop: '10px' }}>
+          <Typography variant="h5" className={classes.title} gutterBottom>
           {translate('general', typeName)}
-        </Typography>
-        <Typography color="textSecondary">
-          {gear && gear[typeName].brand ? translate('brands', gear[typeName].brand).name : ''}
-        </Typography>
-          {showTalentList()}
-        <Typography component="p">
-          {contents}
-        </Typography>
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography color="textSecondary">
+            {gear && gear[typeName].brand ? translate('brands', gear[typeName].brand).name : ''}
+          </Typography>
+            {showTalentList()}
+          <Typography component="p">
+            {contents}
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <AttributeControl typeName="Offensive" value={0}/>
+        </Grid>
+        <Grid item xs={4}>
+          <AttributeControl typeName="Defensive" value={0}/>
+        </Grid>
+        <Grid item xs={4}>
+          <AttributeControl typeName="Utility" value={0}/>
+        </Grid>
+      </Grid>
       </CardContent>
       <CardActions>
-        <GearDialog translate={translate} gearChange={handlingGearChange} gearData={gearData[typeName]} gear={gear}/>
+        <GearDialog translate={translate} typeName={typeName} gearChange={handlingGearChange} gearData={gearData[typeName]} gear={gear}/>
       </CardActions>
     </Card>
   );

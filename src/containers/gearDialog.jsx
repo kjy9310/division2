@@ -7,7 +7,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import OpenDialog from '../components/openDialog';
+import AttributeControl from '../components/attributeControl';
 
 const styles = theme => ({
   formControl: {
@@ -56,6 +58,7 @@ class GearDialog extends React.Component {
     const filteredTalents = gearData.talents.filter(talentCheck);
 
     return (
+    <Grid item xs={4}>
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor={`talents${index}`}>talents</InputLabel>
       <Select
@@ -67,6 +70,7 @@ class GearDialog extends React.Component {
         filteredTalents.map(element => <MenuItem value={element.name}> {translate('talents', element.name) && translate('talents', element.name).name} </MenuItem>)}
       </Select>
     </FormControl>
+    </Grid>
     );
   }
 
@@ -109,7 +113,10 @@ class GearDialog extends React.Component {
       }
     });
     return (
-      <form className={classes.container}>
+
+    <form className={classes.container}>
+    <Grid container>
+      <Grid item xs={12}>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="Brand">Brand</InputLabel>
         <Select
@@ -121,12 +128,15 @@ class GearDialog extends React.Component {
         {brandList.map(element => <MenuItem value={element}> {translate('brands', element).name} </MenuItem>)}
         </Select>
       </FormControl>
+      </Grid>
+      <Grid item xs={12}>
       <Typography className={classes.pos} color="textSecondary">
         {translate('brands', brand).bonuses.join(' / ')}
       </Typography>
-      <br></br>
+      </Grid>
+      <Grid item xs={12}>
       {this.gearSelect()}
-      <br></br>
+      </Grid>
       {
       gears[gearIndex].talents.map((element, index) => this.talentSelect(index))
       }
@@ -137,7 +147,20 @@ class GearDialog extends React.Component {
             </Typography>
         ),
       )}
-      </form>
+      <Grid item xs={12}>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl editable={true} typeName="Offensive" value={0}/>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl editable={true} typeName="Defensive" value={0}/>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl editable={true} typeName="Utility" value={0}/>
+      </Grid>
+    </Grid>
+    </form>
+
     );
   }
 
@@ -151,10 +174,10 @@ class GearDialog extends React.Component {
   }
 
   render() {
-    const { classes, translate } = this.props;
+    const { classes, translate, typeName } = this.props;
 
     return (
-          <OpenDialog buttonName={translate('general', 'detail')} classes={classes} confirmFunction={this.updateGear} content={this.content(this.props)}/>
+          <OpenDialog title={translate('general', typeName)} buttonName={translate('general', 'detail')} classes={classes} confirmFunction={this.updateGear} content={this.content(this.props)}/>
     );
   }
 }

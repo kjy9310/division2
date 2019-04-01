@@ -32,7 +32,9 @@ class OpenDialog extends React.Component {
   };
 
   render() {
-    const { content, confirmFunction: handleOk, buttonName } = this.props;
+    const {
+      content, confirmFunction: handleOk, buttonName, title,
+    } = this.props;
     return (
       <div>
         <Button onClick={this.handleClickOpen}>{buttonName}</Button>
@@ -42,7 +44,7 @@ class OpenDialog extends React.Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <DialogTitle>{buttonName}</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogContent>
             {content}
           </DialogContent>

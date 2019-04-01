@@ -50,7 +50,7 @@ class App extends Component {
     return value;
   }
 
-  gridStyle={ padding: '5px' }
+  gridStyle={ padding: '4px' }
 
   render() {
     const gearData = GearData.gears;
@@ -59,7 +59,7 @@ class App extends Component {
       <div className="App">
       <ButtonAppBar localeControl={this.localeControl}/>
         <header className="App-header">
-          <Grid container style={{ maxWidth: '800px' , marginBottom: '10px' }}>
+          <Grid container style={{ maxWidth: '800px', marginBottom: '10px' }}>
             <Grid item xs={4} style={this.gridStyle}>
             </Grid>
             <Grid item xs={12} style={this.gridStyle}>
