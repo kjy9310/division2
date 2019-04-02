@@ -38,7 +38,6 @@ class GearDialog extends React.Component {
     if (name === 'gearIndex') {
       const { props: { gearData } } = this;
       const newBrand = gearData.equipments[event.target.value].brand;
-      const attributes = gearData.equipments[event.target.value].attribute.map(element => element.type[0]);
       this.setState({
         talents: [],
         brand: newBrand,
@@ -49,7 +48,7 @@ class GearDialog extends React.Component {
         system: {
           Offensive: 0, Defensive: 0, Utility: 0,
         },
-        attribute: attributes,
+        attribute: ['', '', '', ''],
       });
     } else if (name === 'brand' && event.target.value !== '') {
       const { props: { gearData } } = this;
@@ -126,7 +125,7 @@ class GearDialog extends React.Component {
     const { props: { gearData }, state: { gearIndex } } = this;
     return (
       <>
-      {gearData.equipments[gearIndex].attribute.map((element, index) => this.attributeSelect(element.type, index))}
+        {gearData.equipments[gearIndex].attribute.map((element, index) => this.attributeSelect(element.type, index))}
       </>
     );
   }
@@ -141,18 +140,23 @@ class GearDialog extends React.Component {
     const { classes } = this.props;
     const inputValue = this.state.attribute[index];
     return (
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor={`Attribute${index}`}>Attribute{index + 1}</InputLabel>
-        <Select
-        input={<Input id={`Attribute${index}`} />}
-        value={inputValue}
-        onChange={this.handleAttributeChange({ index })}
-        >
-        {type.map(element => (
-            <MenuItem value={element}> {element} </MenuItem>
-        ))}
-        </Select>
-      </FormControl>
+      <Grid item xs={6}>
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor={`Attribute${index}`}>Attribute{index + 1}</InputLabel>
+          <Select
+          input={<Input id={`Attribute${index}`} />}
+          value={inputValue}
+          onChange={this.handleAttributeChange({ index })}
+          style={{height:'50px'}}
+          >
+          {type.map(element => (
+              <MenuItem value={element}>
+                <AttributeControl typeName={element} value="+"/>
+              </MenuItem>
+          ))}
+          </Select>
+        </FormControl>
+      </Grid>
     );
   }
 
