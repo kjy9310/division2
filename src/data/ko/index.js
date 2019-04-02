@@ -1,5 +1,6 @@
 import talents from './equipments/talent';
 import brands from './equipments/brand';
+import gears from './equipments/gear';
 
 const general = {
   detail: '상세',
@@ -11,4 +12,6 @@ const general = {
   kneepads: '무릎보호대',
 };
 
-export default { talents, brands, general };
+export default {
+  talents, brands, general, gears,
+};

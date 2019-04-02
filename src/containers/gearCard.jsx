@@ -66,6 +66,9 @@ function GearCard(props) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
+          <Typography>
+            {gear && gear[typeName].name ? translate('gears', gear[typeName].name).name : ''}
+          </Typography>
           <Typography color="textSecondary">
             {gear && gear[typeName].brand ? translate('brands', gear[typeName].brand).name : ''}
           </Typography>

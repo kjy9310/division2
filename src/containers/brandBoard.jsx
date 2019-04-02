@@ -46,7 +46,7 @@ function brandBoard(props) {
           {brandList.map(row => (
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {translate('brands', row.name).name}
               </TableCell>
               <TableCell>{row.count}</TableCell>
               <TableCell style={{ color: 'blue' }}>{translate('brands', row.name).bonuses[0]}</TableCell>

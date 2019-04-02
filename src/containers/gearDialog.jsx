@@ -97,7 +97,7 @@ class GearDialog extends React.Component {
   }
 
   gearSelect = () => {
-    const { classes, gearData } = this.props;
+    const { classes, gearData, translate } = this.props;
     const { gearIndex, brand } = this.state;
     const gears = gearData.equipments;
     return (
@@ -111,7 +111,7 @@ class GearDialog extends React.Component {
         {gears.map((element, index) => {
           if (brand === '' || element.brand === brand) {
             return (
-              <MenuItem value={index}> {element.name} </MenuItem>
+              <MenuItem value={index}> {translate('gears', element.name).name} </MenuItem>
             );
           }
           return '';
@@ -147,7 +147,7 @@ class GearDialog extends React.Component {
           input={<Input id={`Attribute${index}`} />}
           value={inputValue}
           onChange={this.handleAttributeChange({ index })}
-          style={{height:'50px'}}
+          style={{ height: '50px' }}
           >
           {type.map(element => (
               <MenuItem value={element}>
@@ -298,6 +298,7 @@ class GearDialog extends React.Component {
     sumedAttribute.Utility += protocol.Utility;
     sumedAttribute.Utility += system.Utility;
     gearChange({
+      name: gearData.equipments[gearIndex].name,
       talents,
       brand,
       attribute: sumedAttribute,

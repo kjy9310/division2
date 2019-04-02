@@ -39,7 +39,16 @@ class App extends Component {
     const { localeData } = this.state;
     const path = `${objectPath}['${targetName}']`;
     let value;
+    try {
     value = eval(`localeData.${path}`);
+    } catch (e) {
+      try {
+        value = GearData.en.objectPath[targetName];
+      } catch (e2) {
+        // console.log(e);
+        value = { name: targetName, description: null, bonuses: [] };
+      }
+    }
     if (!value) {
       try {
         value = GearData.en.objectPath[targetName];
