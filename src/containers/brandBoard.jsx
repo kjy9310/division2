@@ -11,11 +11,7 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
   },
 });
 
@@ -41,9 +37,9 @@ function brandBoard(props) {
           <TableRow>
             <TableCell>Brand</TableCell>
             <TableCell>Number</TableCell>
-            <TableCell>Bonus 1</TableCell>
-            <TableCell>Bonus 2</TableCell>
-            <TableCell>Bonus 3</TableCell>
+            <TableCell>Bonus1</TableCell>
+            <TableCell>Bonus2</TableCell>
+            <TableCell>Bonus3</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

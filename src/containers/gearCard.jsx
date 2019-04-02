@@ -75,13 +75,13 @@ function GearCard(props) {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          <AttributeControl typeName="Offensive" value={0}/>
+          <AttributeControl typeName="Offensive" value={gear[typeName].attribute && gear[typeName].attribute.Offensive}/>
         </Grid>
         <Grid item xs={4}>
-          <AttributeControl typeName="Defensive" value={0}/>
+          <AttributeControl typeName="Defensive" value={gear[typeName].attribute && gear[typeName].attribute.Defensive}/>
         </Grid>
         <Grid item xs={4}>
-          <AttributeControl typeName="Utility" value={0}/>
+          <AttributeControl typeName="Utility" value={gear[typeName].attribute && gear[typeName].attribute.Utility}/>
         </Grid>
       </Grid>
       </CardContent>

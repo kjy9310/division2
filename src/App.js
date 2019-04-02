@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import ButtonAppBar from './containers/menuBar';
 import GearCard from './containers/gearCard';
 import BrandBoard from './containers/brandBoard';
+import AttributeGraph from './containers/attributeGraph';
 import GearData from './data';
 
 class App extends Component {
@@ -60,9 +61,10 @@ class App extends Component {
       <ButtonAppBar localeControl={this.localeControl}/>
         <header className="App-header">
           <Grid container style={{ maxWidth: '800px', marginBottom: '10px' }}>
-            <Grid item xs={4} style={this.gridStyle}>
+            <Grid item xs={3} style={this.gridStyle}>
+              <AttributeGraph translate={this.translate} gears={gears}/>
             </Grid>
-            <Grid item xs={12} style={this.gridStyle}>
+            <Grid item xs={9} style={this.gridStyle}>
               <BrandBoard translate={this.translate} gears={gears}/>
             </Grid>
           </Grid>

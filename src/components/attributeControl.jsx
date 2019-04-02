@@ -18,25 +18,17 @@ const styles = theme => ({
   },
 });
 
-function handleDelete() {
-  alert('You clicked the delete icon.'); // eslint-disable-line no-alert
-}
-
-function handleClick() {
-  alert('You clicked the Chip.'); // eslint-disable-line no-alert
-}
-
 function icon(color, src, alt) {
   return (
-		<Avatar style={{ backgroundColor: color }}>
-			<img alt={alt} style={{ height: '18px', width: '18px' }}src={src}/>
-		</Avatar>
+    <Avatar style={{ backgroundColor: color }}>
+      <img alt={alt} style={{ height: '18px', width: '18px' }}src={src}/>
+    </Avatar>
   );
 }
 
 function AttributeControl(props) {
   const {
-    classes, value, typeName, editable, disabled,
+    classes, value, typeName, disabled, handleClick, handleDelete,
   } = props;
   let src;
   let color;
@@ -56,25 +48,24 @@ function AttributeControl(props) {
     default:
   }
   if (disabled) {
-  	color = '';
+    color = '';
   }
   return (
-	<Chip
-			style={{ borderColor: color, margin: 0 }}
-	    avatar={icon(color, src, typeName)}
-	    label={value}
-	    onClick={!disabled && editable && handleClick}
-	    className={classes.chip}
-    	onDelete={!disabled && editable && handleDelete}
-    	deleteIcon={<SettingsBackupRestore style={{ color }}/>}
-	    variant="outlined"
-	  />
-	  );
+    <Chip
+      style={{ borderColor: color, margin: 0 }}
+      avatar={icon(color, src, typeName)}
+      label={value}
+      onClick={!disabled && handleClick}
+      className={classes.chip}
+      onDelete={!disabled && handleDelete}
+      deleteIcon={<SettingsBackupRestore style={{ color }}/>}
+      variant="outlined"
+    />
+  );
 }
 
 AttributeControl.propTypes = {
   classes: PropTypes.object.isRequired,
-  value: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(AttributeControl);

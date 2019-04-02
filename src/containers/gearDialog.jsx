@@ -25,13 +25,36 @@ class GearDialog extends React.Component {
     gearIndex: 0,
     talents: [],
     brand: '',
+    protocol: {
+      Offensive: 0, Defensive: 0, Utility: 0,
+    },
+    system: {
+      Offensive: 0, Defensive: 0, Utility: 0,
+    },
+    attribute: ['', '', '', ''],
   };
 
   handleChange = ({ name, index }) => (event) => {
     if (name === 'gearIndex') {
       const { props: { gearData } } = this;
       const newBrand = gearData.equipments[event.target.value].brand;
-      this.setState({ talents: [], brand: newBrand, [name]: event.target.value });
+      const attributes = gearData.equipments[event.target.value].attribute.map(element => element.type[0]);
+      this.setState({
+        talents: [],
+        brand: newBrand,
+        [name]: event.target.value,
+        protocol: {
+          Offensive: 0, Defensive: 0, Utility: 0,
+        },
+        system: {
+          Offensive: 0, Defensive: 0, Utility: 0,
+        },
+        attribute: attributes,
+      });
+    } else if (name === 'brand' && event.target.value !== '') {
+      const { props: { gearData } } = this;
+      const result = gearData.equipments.findIndex(element => element.brand === event.target.value);
+      this.setState({ [name]: event.target.value, gearIndex: result });
     } else if (!index && index !== 0) {
       this.setState({ [name]: event.target.value });
     } else {
@@ -58,7 +81,7 @@ class GearDialog extends React.Component {
     const filteredTalents = gearData.talents.filter(talentCheck);
 
     return (
-    <Grid item xs={4}>
+    <Grid item xs={6}>
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor={`talents${index}`}>talents</InputLabel>
       <Select
@@ -99,6 +122,100 @@ class GearDialog extends React.Component {
     );
   }
 
+  attributeList = () => {
+    const { props: { gearData }, state: { gearIndex } } = this;
+    return (
+      <>
+      {gearData.equipments[gearIndex].attribute.map((element, index) => this.attributeSelect(element.type, index))}
+      </>
+    );
+  }
+
+  handleAttributeChange=({ index }) => (event) => {
+    const newAttribute = this.state.attribute;
+    newAttribute[index] = event.target.value;
+    this.setState({ attribute: newAttribute });
+  }
+
+  attributeSelect=(type, index) => {
+    const { classes } = this.props;
+    const inputValue = this.state.attribute[index];
+    return (
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor={`Attribute${index}`}>Attribute{index + 1}</InputLabel>
+        <Select
+        input={<Input id={`Attribute${index}`} />}
+        value={inputValue}
+        onChange={this.handleAttributeChange({ index })}
+        >
+        {type.map(element => (
+            <MenuItem value={element}> {element} </MenuItem>
+        ))}
+        </Select>
+      </FormControl>
+    );
+  }
+
+  handleAttributeClick=(target, type) => {
+    const { props: { gearData }, state: { gearIndex } } = this;
+    const targetObject = { ...this.state[target] };
+    if (targetObject[type] === gearData.equipments[gearIndex][target][type]) {
+      return;
+    }
+    targetObject[type] += 1;
+    this.setState({ [target]: targetObject });
+  }
+
+  handleAttributeDelete=(target, type) => {
+    const targetObject = { ...this.state[target] };
+    targetObject[type] = 0;
+    this.setState({ [target]: targetObject });
+  }
+
+  protocolList = () => {
+    const { gearData, translate } = this.props;
+    const { gearIndex, protocol: { Offensive, Defensive, Utility } } = this.state;
+    const target = 'protocol';
+    return (
+      <>
+      <Grid item xs={12} style={{ padding: '5px', margin: '5px' }}>
+        <InputLabel htmlFor={'protocol'}>Protocol</InputLabel>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl typeName="Offensive" value={`${Offensive}/${gearData.equipments[gearIndex][target].Offensive}`} handleClick={() => { this.handleAttributeClick(target, 'Offensive'); }} handleDelete={() => { this.handleAttributeDelete(target, 'Offensive'); }}/>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl typeName="Defensive" value={`${Defensive}/${gearData.equipments[gearIndex][target].Defensive}`} handleClick={() => { this.handleAttributeClick(target, 'Defensive'); }} handleDelete={() => { this.handleAttributeDelete(target, 'Defensive'); }}/>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl typeName="Utility" value={`${Utility}/${gearData.equipments[gearIndex][target].Utility}`} handleClick={() => { this.handleAttributeClick(target, 'Utility'); }} handleDelete={() => { this.handleAttributeDelete(target, 'Utility'); }}/>
+      </Grid>
+      </>
+    );
+  }
+
+  systemList = () => {
+    const { gearData, translate } = this.props;
+    const { gearIndex, system: { Offensive, Defensive, Utility } } = this.state;
+    const target = 'system';
+    return (
+      <>
+      <Grid item xs={12} style={{ padding: '5px', margin: '5px' }}>
+      <InputLabel htmlFor={'system'}>System</InputLabel>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl typeName="Offensive" value={`${Offensive}/${gearData.equipments[gearIndex][target].Offensive}`} handleClick={() => { this.handleAttributeClick(target, 'Offensive'); }} handleDelete={() => { this.handleAttributeDelete(target, 'Offensive'); }}/>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl typeName="Defensive" value={`${Defensive}/${gearData.equipments[gearIndex][target].Defensive}`} handleClick={() => { this.handleAttributeClick(target, 'Defensive'); }} handleDelete={() => { this.handleAttributeDelete(target, 'Defensive'); }}/>
+      </Grid>
+      <Grid item xs={4}>
+        <AttributeControl typeName="Utility" value={`${Utility}/${gearData.equipments[gearIndex][target].Utility}`} handleClick={() => { this.handleAttributeClick(target, 'Utility'); }} handleDelete={() => { this.handleAttributeDelete(target, 'Utility'); }}/>
+      </Grid>
+      </>
+    );
+  }
+
   content() {
     const { classes, gearData, translate } = this.props;
     if (!gearData) {
@@ -112,10 +229,11 @@ class GearDialog extends React.Component {
         brandList.push(element.brand);
       }
     });
+
     return (
 
     <form className={classes.container}>
-    <Grid container>
+    <Grid container style={{ minWidth: '276px' }}>
       <Grid item xs={12}>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="Brand">Brand</InputLabel>
@@ -149,15 +267,9 @@ class GearDialog extends React.Component {
       )}
       <Grid item xs={12}>
       </Grid>
-      <Grid item xs={4}>
-        <AttributeControl editable={true} typeName="Offensive" value={0}/>
-      </Grid>
-      <Grid item xs={4}>
-        <AttributeControl editable={true} typeName="Defensive" value={0}/>
-      </Grid>
-      <Grid item xs={4}>
-        <AttributeControl editable={true} typeName="Utility" value={0}/>
-      </Grid>
+      {this.protocolList()}
+      {this.systemList()}
+      {this.attributeList()}
     </Grid>
     </form>
 
@@ -165,11 +277,26 @@ class GearDialog extends React.Component {
   }
 
   updateGear = () => {
-    const { props: { gearChange, gearData }, state: { gearIndex, talents } } = this;
+    const {
+      props: { gearChange, gearData }, state: {
+        gearIndex, talents, protocol, system, attribute,
+      },
+    } = this;
     const { brand } = gearData.equipments[gearIndex];
+    const sumedAttribute = { Offensive: 0, Defensive: 0, Utility: 0 };
+    attribute.forEach((element) => {
+      sumedAttribute[element] += 1;
+    });
+    sumedAttribute.Offensive += protocol.Offensive;
+    sumedAttribute.Offensive += system.Offensive;
+    sumedAttribute.Defensive += protocol.Defensive;
+    sumedAttribute.Defensive += system.Defensive;
+    sumedAttribute.Utility += protocol.Utility;
+    sumedAttribute.Utility += system.Utility;
     gearChange({
       talents,
       brand,
+      attribute: sumedAttribute,
     });
   }
 
