@@ -8,8 +8,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import OpenDialog from '../components/openDialog';
 import AttributeControl from '../components/attributeControl';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   formControl: {
@@ -111,7 +111,11 @@ class GearDialog extends React.Component {
         {gears.map((element, index) => {
           if (brand === '' || element.brand === brand) {
             return (
-              <MenuItem value={index}> {translate('gears', element.name).name} </MenuItem>
+              <MenuItem value={index} style={{wordWrap:'word-break', overflowY:'scroll', whiteSpace:'normal', minWidth:'200px'}}>
+                <span style={{left:0,top:0,wordWrap:'word-break', whiteSpace:'normal', minWidth:'200px'}}>
+                {translate('gears', element.name).name} 
+                </span>
+              </MenuItem>
             );
           }
           return '';
@@ -271,9 +275,9 @@ class GearDialog extends React.Component {
       )}
       <Grid item xs={12}>
       </Grid>
+      {this.attributeList()}
       {this.protocolList()}
       {this.systemList()}
-      {this.attributeList()}
     </Grid>
     </form>
 
@@ -309,7 +313,17 @@ class GearDialog extends React.Component {
     const { classes, translate, typeName } = this.props;
 
     return (
-          <OpenDialog title={translate('general', typeName)} buttonName={translate('general', 'detail')} classes={classes} confirmFunction={this.updateGear} content={this.content(this.props)}/>
+      <>  
+        {this.content(this.props)}
+        <Grid item xs={12} style={{margin:'10px'}}>
+          <Button
+          style={{color:'#fff',backgroundColor:'#ff6a13',width:'100%'}}
+          variant="contained"
+          onClick={this.updateGear} className={classes.button}>
+          SAVE
+          </Button>
+        </Grid>
+      </>
     );
   }
 }

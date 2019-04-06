@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -10,6 +10,10 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import GearDialog from './gearDialog'
 import AttributeControl from '../components/attributeControl'
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import classnames from 'classnames';
+import Collapse from '@material-ui/core/Collapse';
 
 const styles = {
   card: {
@@ -27,6 +31,12 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  expand: {
+    margin: 'auto',
+  },
 }
 
 function GearCard(props) {
@@ -39,8 +49,12 @@ function GearCard(props) {
     setGear,
     translate,
   } = props
+  
+  const [expanded, setExpanded] = useState(false) 
+  
   const handlingGearChange = gearInfo => {
     setGear(typeName, gearInfo)
+    setExpanded(false)
   }
   const showTalentList = () => {
     if (!gear || !gear[typeName].talents) {
@@ -69,7 +83,8 @@ function GearCard(props) {
     })
   }
   return (
-    <Card className={classes.card}>
+    <Grid item xs={expanded?12:6} style={{ padding: '4px' }}>
+    <Card className={expanded?classes.expandedCard: classes.card}>
       <CardContent style={{ padding: 0 }}>
         <Grid container style={{ margin: 0, padding: 0 }}>
           <Grid item xs={12} style={{ marginTop: '10px' }}>
@@ -118,15 +133,30 @@ function GearCard(props) {
         </Grid>
       </CardContent>
       <CardActions>
+        <IconButton
+          className={classnames(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={()=>{setExpanded(!expanded)}}
+          aria-expanded={expanded}
+          aria-label="Show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
         <GearDialog
           translate={translate}
           typeName={typeName}
           gearChange={handlingGearChange}
           gearData={gearData[typeName]}
           gear={gear}
-        />
-      </CardActions>
+        />  
+        </CardContent>
+      </Collapse>
     </Card>
+    </Grid>
   )
 }
 

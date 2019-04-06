@@ -60,8 +60,6 @@ class App extends Component {
     return value;
   }
 
-  gridStyle={ padding: '4px' }
-
   render() {
     const gearData = GearData.gears;
     const { gears } = this.state;
@@ -87,24 +85,15 @@ class App extends Component {
             <Grid item xs={4}>
               <GearCard title="subWeapon" typeName="weapon" gearData={gearData}/>
             </Grid> */}
-            <Grid item xs={6} style={this.gridStyle}>
+            
               <GearCard translate={this.translate} setGear={this.setGear} typeName="mask" gear={gears} gearData={gearData}/>
-            </Grid>
-            <Grid item xs={6} style={this.gridStyle}>
+            
               <GearCard translate={this.translate} setGear={this.setGear} typeName="chest" gear={gears} gearData={gearData}/>
-            </Grid>
-            <Grid item xs={6} style={this.gridStyle}>
              <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="backpack" gearData={gearData}/>
-            </Grid>
-            <Grid item xs={6} style={this.gridStyle}>
               <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="gloves" gearData={gearData}/>
-            </Grid>
-            <Grid item xs={6} style={this.gridStyle}>
               <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="holster" gearData={gearData}/>
-            </Grid>
-            <Grid item xs={6} style={this.gridStyle}>
               <GearCard translate={this.translate} setGear={this.setGear} gear={gears} typeName="kneepads" gearData={gearData}/>
-            </Grid>
+            
           </Grid>
         </header>
       </div>
