@@ -1,0 +1,19 @@
+version: "3"
+services:
+  app:  
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: division2_simulator
+    volumes:
+      - ./:/app
+      - /app/node_modules/
+    restart: always
+    ports:
+      - "7777:3000"
+    # environment:
+    #   - NODE_ENV=development
+#     networks:
+#       - front
+# networks:
+#   front:
