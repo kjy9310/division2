@@ -10,10 +10,11 @@ services:
       - /app/node_modules/
     restart: always
     ports:
-      - "7777:3000"
-    # environment:
+      - 7777:3006
+    environment:
+      - PORT=3006
     #   - NODE_ENV=development
-#     networks:
-#       - front
-# networks:
-#   front:
+    networks:
+      - division2
+networks:
+  division2:
