@@ -2,7 +2,8 @@
 FROM node:12.16.1-alpine
 #FROM alpine-node:12.16.1
 # FROM buildpack-deps:stretch
-
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh
 # RUN groupadd --gid 1000 node \
 #   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
