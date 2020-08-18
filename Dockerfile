@@ -7,7 +7,7 @@ FROM node:12.16.1-alpine
 #   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
 # ENV NODE_VERSION 12.16.1
-
+EXPOSE 3006
 
 # set working directory
 WORKDIR /app
@@ -18,8 +18,9 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install and cache app dependencies
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
+COPY tsconfig.json /app/tsconfig.json
 
-RUN npm install --save react react-dom react-scripts
+# RUN npm install --save react react-dom react-scripts
 RUN npm install
 # RUN npm install -g react-scripts@3.0.1
 

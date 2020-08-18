@@ -1,3 +1,7 @@
+# clean up images
+# $ docker rmi $(docker images | grep '^<none>' | awk '{print $3}')
+# clean up volumn
+# $ docker volume rm $(docker volume ls -qf dangling=true)
 version: "3"
 services:
   app:  
